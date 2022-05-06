@@ -2,7 +2,6 @@ package com.example.tictactoe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Display
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -11,19 +10,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     // Created a player class to handle player information
     private val player1 = Player("Player X", "X")
     private val player2 = Player("Player O", "O")
-
     // Keeps track of which player's turn it is
     private var activePlayer = player1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setIcon(R.mipmap.tac)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Couldn't quite figure out how to hand this as a generic type
         // or use as a variable
-        findViewById<TextView>(R.id.textView).text = player1.name
+        findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
 
         val reset = findViewById<Button>(R.id.new_game)
 
@@ -53,31 +51,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     // takes the array of buttons and New Game button
     // and clears the buttons of text and sets the player turn to player1
     // effectively resetting the game
-    fun newGame(buttons: Array<Button>, resetButton: Button){
+    private fun newGame(buttons: Array<Button>, resetButton: Button){
         resetButton.setOnClickListener {
             for (button in buttons) {
                 button.text = ""
             }
-            findViewById<TextView>(R.id.textView).text = player1.name
+            findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
             activePlayer = player1
         }
     }
 
     override fun onClick(v: View?) {
         // stores the button in the variable btnClicked
-        var btnClicked = findViewById<Button>(v!!.id)
+        val btnClicked = findViewById<Button>(v!!.id)
 
         // If there is no text present in the button add either an X or an O
         // and change player, else do nothing
         if(btnClicked.text != player1.symbol && btnClicked.text != player2.symbol) {
             if (activePlayer == player1) {
                 btnClicked.text = player1.symbol
-                findViewById<TextView>(R.id.textView).text = player2.name
+                findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player2.name)
                 activePlayer = player2
 
             } else {
                 btnClicked.text = player2.symbol
-                findViewById<TextView>(R.id.textView).text = player1.name
+                findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
                 activePlayer = player1
 
             }
