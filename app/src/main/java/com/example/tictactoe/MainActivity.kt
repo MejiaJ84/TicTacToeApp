@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Couldnt quite figure out how to hand this as a generic type
+        // Couldn't quite figure out how to hand this as a generic type
         // or use as a variable
-        findViewById<TextView>(R.id.textView).setText(player1.name)
+        findViewById<TextView>(R.id.textView).text = player1.name
 
         val reset = findViewById<Button>(R.id.new_game)
 
@@ -40,10 +40,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             findViewById<Button>(R.id.button9)
         )
 
-
         //Send the buttons in the array to the onClick function
         for(button in buttons){
             button.setOnClickListener(this)
+        }
+
+        // Calls the newGame function
+        // to pass it the required parameters
+        newGame(buttons, reset)
+    }
+
+    // takes the array of buttons and New Game button
+    // and clears the buttons of text and sets the player turn to player1
+    // effectively resetting the game
+    fun newGame(buttons: Array<Button>, resetButton: Button){
+        resetButton.setOnClickListener {
+            for (button in buttons) {
+                button.text = ""
+            }
+            findViewById<TextView>(R.id.textView).text = player1.name
+            activePlayer = player1
         }
     }
 
@@ -54,14 +70,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // If there is no text present in the button add either an X or an O
         // and change player, else do nothing
         if(btnClicked.text != player1.symbol && btnClicked.text != player2.symbol) {
-            if (activePlayer.equals(player1)) {
-                btnClicked.setText(player1.symbol)
-                findViewById<TextView>(R.id.textView).setText(player2.name)
+            if (activePlayer == player1) {
+                btnClicked.text = player1.symbol
+                findViewById<TextView>(R.id.textView).text = player2.name
                 activePlayer = player2
 
             } else {
-                btnClicked.setText(player2.symbol)
-                findViewById<TextView>(R.id.textView).setText(player1.name)
+                btnClicked.text = player2.symbol
+                findViewById<TextView>(R.id.textView).text = player1.name
                 activePlayer = player1
 
             }
