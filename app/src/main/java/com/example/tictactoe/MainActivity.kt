@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import kotlin.Array as Array1
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     // Created a player class to handle player information
     private val player1 = Player("Player X", "X")
     private val player2 = Player("Player O", "O")
+    private val player1Position = 0
+    private val player2Position = 1
+    lateinit var playerPosition : IntArray
+    lateinit var tv : TextView
+
     // Keeps track of which player's turn it is
     private var activePlayer = player1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -19,9 +26,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // -1 = empty space
+        playerPosition = intArrayOf(-1, -1, -1, -1, -1, -1, -1, -1, -1)
+
         // Couldn't quite figure out how to hand this as a generic type
         // or use as a variable
-        findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
+        tv = findViewById(R.id.textView)
+        tv.text = getString(R.string.players_turn, player1.name)
 
         val reset = findViewById<Button>(R.id.new_game)
 
@@ -51,12 +62,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     // takes the array of buttons and New Game button
     // and clears the buttons of text and sets the player turn to player1
     // effectively resetting the game
-    private fun newGame(buttons: Array<Button>, resetButton: Button){
+    private fun newGame(buttons: Array1<Button>, resetButton: Button){
         resetButton.setOnClickListener {
             for (button in buttons) {
                 button.text = ""
             }
-            findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
+            tv.text = getString(R.string.players_turn, player1.name)
             activePlayer = player1
         }
     }
@@ -70,12 +81,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(btnClicked.text != player1.symbol && btnClicked.text != player2.symbol) {
             if (activePlayer == player1) {
                 btnClicked.text = player1.symbol
-                findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player2.name)
+                tv.text = getString(R.string.players_turn, player2.name)
                 activePlayer = player2
 
             } else {
                 btnClicked.text = player2.symbol
-                findViewById<TextView>(R.id.textView).text = getString(R.string.players_turn, player1.name)
+                tv.text = getString(R.string.players_turn, player1.name)
                 activePlayer = player1
 
             }
