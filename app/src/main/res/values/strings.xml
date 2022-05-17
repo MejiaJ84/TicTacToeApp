@@ -3,4 +3,6 @@
     <string name="button">Button</string>
     <string name="new_game">New Game</string>
     <string name="players_turn">%1$s! \'s Turn</string>
+    <string name="player_wins">%1$s! Wins!</string>
+    <string name="draw">Draw!</string>
 </resources>
