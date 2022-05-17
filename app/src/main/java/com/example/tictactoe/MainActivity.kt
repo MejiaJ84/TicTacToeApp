@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // -1 = empty space
         playerPosition = intArrayOf(-1, -1, -1, -1, -1, -1, -1, -1, -1)
 
-        // Couldn't quite figure out how to hand this as a generic type
-        // or use as a variable
+        // store the text view in a variable
         tv = findViewById(R.id.textView)
         tv.text = getString(R.string.players_turn, player1.name)
 
