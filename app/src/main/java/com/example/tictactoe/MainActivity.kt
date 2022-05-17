@@ -13,13 +13,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val player1 = Player("Player X", "X", 0)
     private val player2 = Player("Player O", "O", 1)
 
-    lateinit var playerPosition : IntArray
-    lateinit var tv : TextView
+    private lateinit var playerPosition : IntArray
+    private lateinit var tv : TextView
 
     // Keeps track of which player's turn it is
     private var activePlayer = player1
 
-    var gameOn = true
+    private var gameOn = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         // stores the button in the variable btnClicked
         val btnClicked = findViewById<Button>(v!!.id)
-        var clickedTag = Integer.parseInt(btnClicked.tag.toString())
+        val clickedTag = Integer.parseInt(btnClicked.tag.toString())
 
         // If there is no text present in the button add either an X or an O
         // and change player, else do nothing
@@ -110,11 +110,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun winOrTie() {
-        var winningPosition = arrayOf(intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8), // row
+        val winningPosition = arrayOf(intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8), // row
                                     intArrayOf(0, 3, 6), intArrayOf(1, 4, 7), intArrayOf(2, 5, 8), // column
                                     intArrayOf(0, 4, 8), intArrayOf(2, 4, 6)) // diagonal
 
-        for (i in 0 until winningPosition.size){
+        for (i in winningPosition.indices){
             var val0 = winningPosition[i][0]
             var val1 = winningPosition[i][1]
             var val2 = winningPosition[i][2]
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun draw() {
         var count = 0
         // if square is blank, increment count
-        for (i in 0 until playerPosition.size) {
+        for (i in playerPosition.indices) {
             if (playerPosition[i] == -1) {
                 count++
             }
